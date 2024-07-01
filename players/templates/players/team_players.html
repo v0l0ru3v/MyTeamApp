@@ -1,0 +1,51 @@
+
+
+
+
+{% extends 'myteam/base.html' %}
+
+{% block title %}Team {{ year }}{% endblock %}
+
+{% block content %}
+<style>
+    .player-container {
+        display: flex;
+        margin-bottom: 20px;
+    }
+    .player-photo {
+        flex: 0 0 150px; /* Ширина блока с фото */
+        margin-right: 20px;
+    }
+    .player-info {
+        flex: 1; /* Остальное пространство для информации */
+    }
+    .player-info p {
+        margin: 5px 0;
+    }
+    .player-photo img {
+        width: 100%;
+        height: auto;
+    }
+</style>
+
+
+<h1>Team {{ year }}</h1>
+    {% for player in team_players %}
+    <div class="player-container">
+        <div class="player-photo">
+            {% if player.photo %}
+                <img src="{{ player.photo.url }}" alt="Player Photo">
+            {% else %}
+                <p>No Photo</p>
+            {% endif %}
+        </div>
+        <div class="player-info">
+            <p>{{ player.first_name }} {{ player.last_name }}</p>
+            <p>Дата рождения: {{ player.full_birth_date }}</p>
+            <p>Позиция: {{ player.position }}</p>
+            <p>Номер: {{ player.number }}</p>
+        </div>
+    </div>
+    {% endfor %}
+    <a href="{% url 'teams_list' %}">Back to Teams List</a>
+{% endblock %}
